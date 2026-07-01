@@ -1,0 +1,43 @@
+.wrapper {
+  display: flex;
+  align-items: baseline;
+  gap: var(--space-2);
+}
+
+.count {
+  font-size: 3rem;
+  font-weight: 800;
+  font-variant-numeric: tabular-nums;
+  display: inline-block;
+}
+
+.label {
+  color: var(--color-text-muted);
+  font-size: 1rem;
+}
+
+// Disabled automatically under prefers-reduced-motion by the global rule
+// in globals.scss, which collapses all animation durations to ~0.
+.shake {
+  animation: shake 0.5s ease-in-out;
+}
+
+@keyframes shake {
+  10%,
+  90% {
+    transform: translateX(-2px);
+  }
+  20%,
+  80% {
+    transform: translateX(4px);
+  }
+  30%,
+  50%,
+  70% {
+    transform: translateX(-8px);
+  }
+  40%,
+  60% {
+    transform: translateX(8px);
+  }
+}

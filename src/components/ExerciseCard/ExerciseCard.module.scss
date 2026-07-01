@@ -1,0 +1,65 @@
+@use "mixins" as *;
+
+.card {
+  list-style: none;
+}
+
+.article {
+  height: 100%;
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  padding: var(--space-4);
+  background-color: var(--color-surface-raised);
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: var(--space-2);
+}
+
+.header {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--space-3);
+}
+
+.name {
+  font-size: 1.05rem;
+  margin: 0;
+}
+
+.nameLink {
+  text-decoration: none;
+  color: var(--color-text);
+
+  @include focus-ring;
+
+  &:hover {
+    text-decoration: underline;
+  }
+
+  &:visited {
+    color: var(--color-text);
+  }
+}
+
+.meta {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  gap: var(--space-1) var(--space-3);
+  margin: 0;
+  font-size: 0.875rem;
+}
+
+.metaRow {
+  display: contents;
+
+  dt {
+    color: var(--color-text-muted);
+    font-weight: 600;
+  }
+
+  dd {
+    margin: 0;
+    text-transform: capitalize;
+  }
+}
