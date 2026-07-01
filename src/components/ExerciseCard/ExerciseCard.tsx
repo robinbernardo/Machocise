@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { ArchetypeBadge } from "@/components/ArchetypeBadge/ArchetypeBadge";
+import { ArchetypeThumbnail } from "@/components/ArchetypeThumbnail/ArchetypeThumbnail";
 import { toTitleCase } from "@/lib/format";
 import type { Exercise } from "@/types/exercise";
 import styles from "./ExerciseCard.module.scss";
@@ -10,12 +11,17 @@ export function ExerciseCard({ exercise }: { exercise: Exercise }) {
   return (
     <li className={styles.card}>
       <article aria-labelledby={headingId} className={styles.article}>
-        <h3 id={headingId} className={styles.name}>
-          <Link href={`/exercises/${exercise.id}`} className={styles.nameLink}>
-            {toTitleCase(exercise.name)}
-          </Link>
-        </h3>
-        <ArchetypeBadge archetype={exercise.archetype} />
+        <div className={styles.header}>
+          <ArchetypeThumbnail archetype={exercise.archetype} />
+          <div>
+            <h3 id={headingId} className={styles.name}>
+              <Link href={`/exercises/${exercise.id}`} className={styles.nameLink}>
+                {toTitleCase(exercise.name)}
+              </Link>
+            </h3>
+            <ArchetypeBadge archetype={exercise.archetype} />
+          </div>
+        </div>
         <dl className={styles.meta}>
           <div className={styles.metaRow}>
             <dt>Body part</dt>

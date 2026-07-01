@@ -22,6 +22,16 @@
   }
 }
 
+.hero {
+  display: flex;
+  align-items: center;
+  gap: var(--space-4);
+
+  h1 {
+    margin: 0 0 var(--space-2);
+  }
+}
+
 .meta {
   display: grid;
   grid-template-columns: auto 1fr;

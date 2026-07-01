@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { ArchetypeBadge } from "@/components/ArchetypeBadge/ArchetypeBadge";
+import { ArchetypeThumbnail } from "@/components/ArchetypeThumbnail/ArchetypeThumbnail";
 import { getExerciseById } from "@/lib/exercises/loadExercises";
 import { toTitleCase } from "@/lib/format";
 import { ARCHETYPE_DESCRIPTIONS } from "@/types/exercise";
@@ -27,8 +28,13 @@ export default async function ExerciseDetailPage({ params }: ExerciseDetailPageP
       <Link href="/" className={styles.back}>
         ← Back to library
       </Link>
-      <h1>{toTitleCase(exercise.name)}</h1>
-      <ArchetypeBadge archetype={exercise.archetype} />
+      <div className={styles.hero}>
+        <ArchetypeThumbnail archetype={exercise.archetype} size="large" />
+        <div>
+          <h1>{toTitleCase(exercise.name)}</h1>
+          <ArchetypeBadge archetype={exercise.archetype} />
+        </div>
+      </div>
 
       <dl className={styles.meta}>
         <div>

@@ -1,0 +1,30 @@
+@use "sass:map";
+@use "variables" as vars;
+
+.thumbnail {
+  width: 3rem;
+  height: 3rem;
+  border-radius: var(--radius-md);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+
+  svg {
+    width: 60%;
+    height: 60%;
+  }
+}
+
+.large {
+  width: 6rem;
+  height: 6rem;
+  border-radius: var(--radius-lg);
+}
+
+@each $name, $colors in vars.$archetype-colors {
+  .#{$name} {
+    background-color: map.get($colors, bg);
+    color: map.get($colors, text);
+  }
+}
