@@ -1,0 +1,27 @@
+.overlay {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.5rem;
+  font-weight: 800;
+  color: #fff;
+  text-shadow: 0 1px 3px rgb(0 0 0 / 0.4);
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 250ms ease-out;
+}
+
+.visible {
+  opacity: 0.85;
+  transition: opacity 60ms ease-in;
+}
+
+.correct {
+  background-color: var(--color-success-bg);
+}
+
+.incorrect {
+  background-color: var(--color-error-bg);
+}

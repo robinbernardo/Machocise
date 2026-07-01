@@ -1,0 +1,23 @@
+.board {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-5);
+  margin: 0;
+}
+
+.stat {
+  display: flex;
+  flex-direction: column;
+
+  dt {
+    font-size: 0.8rem;
+    color: var(--color-text-muted);
+    font-weight: 600;
+  }
+
+  dd {
+    margin: 0;
+    font-size: 1.5rem;
+    font-weight: 700;
+  }
+}

@@ -1,0 +1,32 @@
+@use "mixins" as *;
+
+.filters {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-4);
+  margin-bottom: var(--space-5);
+}
+
+.field {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-1);
+  min-width: 12rem;
+
+  label {
+    font-size: 0.875rem;
+    font-weight: 600;
+    color: var(--color-text-muted);
+  }
+
+  input,
+  select {
+    padding: var(--space-2) var(--space-3);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-sm);
+    background-color: var(--color-bg);
+    color: var(--color-text);
+
+    @include focus-ring;
+  }
+}

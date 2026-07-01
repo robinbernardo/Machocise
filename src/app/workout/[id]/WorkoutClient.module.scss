@@ -1,0 +1,58 @@
+@use "mixins" as *;
+
+.page {
+  max-width: var(--max-content-width);
+  margin-inline: auto;
+  padding: var(--space-6) var(--space-5);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-4);
+}
+
+.backLink {
+  align-self: flex-start;
+  color: var(--color-link);
+  text-decoration: none;
+  font-weight: 600;
+
+  @include focus-ring;
+
+  &:hover {
+    text-decoration: underline;
+  }
+}
+
+.workoutArea {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: var(--space-5);
+
+  @include respond(md) {
+    grid-template-columns: 2fr 1fr;
+  }
+}
+
+.cameraColumn {
+  position: relative;
+}
+
+.statsColumn {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: var(--space-4);
+}
+
+.endButton {
+  padding: var(--space-3) var(--space-5);
+  background-color: var(--color-error);
+  color: #fff;
+  border-radius: var(--radius-md);
+  font-weight: 700;
+
+  @include focus-ring;
+
+  &:hover {
+    opacity: 0.9;
+  }
+}

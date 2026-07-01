@@ -1,0 +1,44 @@
+@use "mixins" as *;
+
+.gate {
+  max-width: 32rem;
+  margin-inline: auto;
+  padding: var(--space-6);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-lg);
+  background-color: var(--color-surface-raised);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-4);
+  text-align: center;
+}
+
+.heading {
+  margin: 0;
+}
+
+.button {
+  align-self: center;
+  padding: var(--space-3) var(--space-6);
+  background-color: var(--color-primary);
+  color: var(--color-primary-contrast);
+  border-radius: var(--radius-md);
+  font-weight: 700;
+  font-size: 1rem;
+
+  @include focus-ring;
+
+  &:hover:not(:disabled) {
+    background-color: var(--color-primary-hover);
+  }
+
+  &:disabled {
+    opacity: 0.7;
+  }
+}
+
+.status {
+  min-height: 1.5em;
+  color: var(--color-error);
+  font-weight: 600;
+}
