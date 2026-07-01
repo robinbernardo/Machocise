@@ -4,6 +4,7 @@ import Link from "next/link";
 import { useCallback, useRef, useState } from "react";
 import { CameraPermissionGate } from "@/components/CameraPermissionGate/CameraPermissionGate";
 import { FeedbackOverlay, type FeedbackStatus } from "@/components/FeedbackOverlay/FeedbackOverlay";
+import { FormGuidance } from "@/components/FormGuidance/FormGuidance";
 import { PoseCanvas } from "@/components/PoseCanvas/PoseCanvas";
 import { RepCounter } from "@/components/RepCounter/RepCounter";
 import { ScoreBoard } from "@/components/ScoreBoard/ScoreBoard";
@@ -17,6 +18,7 @@ import type { Exercise } from "@/types/exercise";
 import styles from "./WorkoutClient.module.scss";
 
 const FEEDBACK_FLASH_MS = 600;
+const GUIDANCE_STREAK_THRESHOLD = 2;
 
 interface WorkoutClientProps {
   exercise: Exercise;
@@ -28,6 +30,7 @@ export function WorkoutClient({ exercise }: WorkoutClientProps) {
   const [incorrectReps, setIncorrectReps] = useState(0);
   const [lastResult, setLastResult] = useState<{ correct: boolean; reason?: string } | null>(null);
   const [feedbackStatus, setFeedbackStatus] = useState<FeedbackStatus>(null);
+  const [consecutiveIncorrect, setConsecutiveIncorrect] = useState(0);
   const [finished, setFinished] = useState(false);
 
   const engineRef = useRef(createRepEngine(exercise.archetype));
@@ -35,7 +38,6 @@ export function WorkoutClient({ exercise }: WorkoutClientProps) {
   const feedbackTimeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null);
   const savedRef = useRef(false);
 
-  const totalReps = correctReps + incorrectReps;
   const score = correctReps * 10 - incorrectReps * 2;
 
   const handleGranted = useCallback((mediaStream: MediaStream) => {
@@ -50,7 +52,16 @@ export function WorkoutClient({ exercise }: WorkoutClientProps) {
     setLastResult({ correct: event.correct, reason: event.reason });
     setFeedbackStatus(event.correct ? "correct" : "incorrect");
     playFeedbackSound(event.correct ? "correct" : "incorrect");
-    event.correct ? setCorrectReps((count) => count + 1) : setIncorrectReps((count) => count + 1);
+
+    if (event.correct) {
+      // Only correct reps advance the counter -- an incorrect attempt gets
+      // red/shake/buzz feedback but doesn't count toward the set.
+      setCorrectReps((count) => count + 1);
+      setConsecutiveIncorrect(0);
+    } else {
+      setIncorrectReps((count) => count + 1);
+      setConsecutiveIncorrect((count) => count + 1);
+    }
 
     if (feedbackTimeoutRef.current) clearTimeout(feedbackTimeoutRef.current);
     feedbackTimeoutRef.current = setTimeout(() => setFeedbackStatus(null), FEEDBACK_FLASH_MS);
@@ -84,6 +95,7 @@ export function WorkoutClient({ exercise }: WorkoutClientProps) {
     setIncorrectReps(0);
     setLastResult(null);
     setFeedbackStatus(null);
+    setConsecutiveIncorrect(0);
     setFinished(false);
   }, [exercise.archetype]);
 
@@ -120,8 +132,11 @@ export function WorkoutClient({ exercise }: WorkoutClientProps) {
               <FeedbackOverlay status={feedbackStatus} />
             </div>
             <div className={styles.statsColumn}>
-              <RepCounter count={totalReps} lastResult={lastResult} />
+              <RepCounter count={correctReps} lastResult={lastResult} />
               <ScoreBoard score={score} correctReps={correctReps} incorrectReps={incorrectReps} />
+              {consecutiveIncorrect >= GUIDANCE_STREAK_THRESHOLD && (
+                <FormGuidance reason={lastResult?.reason} />
+              )}
               <button type="button" className={styles.endButton} onClick={endSession}>
                 End set
               </button>

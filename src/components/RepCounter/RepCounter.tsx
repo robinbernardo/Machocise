@@ -22,12 +22,12 @@ export function RepCounter({ count, lastResult }: RepCounterProps) {
     ? ""
     : lastResult.correct
       ? `Rep ${count}: good form.`
-      : `Rep ${count}: form issue. ${lastResult.reason ?? ""}`;
+      : `Form issue, rep not counted. ${lastResult.reason ?? ""}`;
 
   return (
     <div className={styles.wrapper}>
       <span className={`${styles.count} ${shake ? styles.shake : ""}`.trim()}>{count}</span>
-      <span className={styles.label}>reps</span>
+      <span className={styles.label}>correct reps</span>
       <p role="status" aria-live="polite" className="visually-hidden">
         {announcement}
       </p>
