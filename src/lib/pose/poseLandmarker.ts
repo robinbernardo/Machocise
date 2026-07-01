@@ -1,7 +1,9 @@
 import { FilesetResolver, PoseLandmarker, type PoseLandmarkerResult } from "@mediapipe/tasks-vision";
 
-const TASKS_VISION_VERSION = "0.10.35";
-const WASM_BASE_URL = `https://cdn.jsdelivr.net/npm/@mediapipe/tasks-vision@${TASKS_VISION_VERSION}/wasm`;
+// Served same-origin from public/mediapipe/wasm (copied out of node_modules
+// by scripts/copy-mediapipe-assets.mjs) rather than a third-party CDN, so
+// the pose pipeline doesn't depend on jsdelivr's availability.
+const WASM_BASE_URL = "/mediapipe/wasm";
 const MODEL_ASSET_URL =
   "https://storage.googleapis.com/mediapipe-models/pose_landmarker/pose_landmarker_lite/float16/latest/pose_landmarker_lite.task";
 

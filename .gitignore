@@ -5,6 +5,9 @@
 /.next/
 /out/
 
+# generated: copied from node_modules by scripts/copy-mediapipe-assets.mjs
+/public/mediapipe/
+
 # production
 /build
 
